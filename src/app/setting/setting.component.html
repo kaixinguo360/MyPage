@@ -1,0 +1,15 @@
+<app-header mode="back"></app-header>
+<div class="settings">
+  <div class="set-catalog">
+    <div class="set-catalog-title">
+      <h2>搜索</h2>
+    </div>
+    <hr>
+    <div class="set-item">
+      搜索引擎
+      <select class="set" [(ngModel)]="engine" (click)="save()">
+        <option *ngFor="let e of engines" [value]="e">{{e}}</option>
+      </select>
+    </div>
+  </div>
+</div>

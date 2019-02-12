@@ -3,3 +3,35 @@ html, body {
   height: 100%;
   margin: 0;
 }
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.header>div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.icon-box {
+  position: absolute;
+  margin: 8px;
+}
+
+.icon-box>div {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+}
+
+.icon-box>div>svg {
+  width: 32px;
+  height: 32px;
+  margin: 8px;
+  fill: gray;
+}

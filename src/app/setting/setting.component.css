@@ -1,0 +1,28 @@
+.settings {
+  width: 100%;
+  margin: 68px auto 64px;
+}
+
+.set-catalog {
+  width: 80%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.set-catalog-title {
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+}
+
+.set-item {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  margin: 24px auto;
+}
+
+.set {
+  position: absolute;
+  right: 0;
+}
