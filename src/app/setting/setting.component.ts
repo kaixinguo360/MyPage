@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {PreferenceService} from '../preference.service';
+
+import { PreferenceService } from '../preference.service';
 
 @Component({
   selector: 'app-setting',
@@ -8,11 +9,20 @@ import {PreferenceService} from '../preference.service';
 })
 export class SettingComponent implements OnInit {
 
-  engines = [ 'google', 'baidu' ];
-  engine = this.preference.getPreference('searchEngine');
+  searchEngines: { title: string; id: string }[] = [
+    { title: 'Google', id: 'google' },
+    { title: '百度', id: 'baidu' }
+  ];
+  searchEngine = this.preference.getPreference('searchEngine');
+  suggestionEngines: { title: string; id: string }[] = [
+    { title: 'Google', id: 'google' },
+    { title: '百度', id: 'baidu' }
+  ];
+  suggestionEngine = this.preference.getPreference('suggestionEngine');
 
   save() {
-    this.preference.setPreference('searchEngine', this.engine);
+    this.preference.setPreference('searchEngine', this.searchEngine);
+    this.preference.setPreference('suggestionEngine', this.suggestionEngine);
   }
 
   constructor(private preference: PreferenceService) { }

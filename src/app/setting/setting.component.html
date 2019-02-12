@@ -7,8 +7,14 @@
     <hr>
     <div class="set-item">
       搜索引擎
-      <select class="set" [(ngModel)]="engine" (click)="save()">
-        <option *ngFor="let e of engines" [value]="e">{{e}}</option>
+      <select class="set" [(ngModel)]="searchEngine" (change)="save()">
+        <option *ngFor="let e of searchEngines" [value]="e.id">{{e.title}}</option>
+      </select>
+    </div>
+    <div class="set-item">
+      联想词来源
+      <select class="set" [(ngModel)]="suggestionEngine" (change)="save()">
+        <option *ngFor="let e of suggestionEngines" [value]="e.id">{{e.title}}</option>
       </select>
     </div>
   </div>

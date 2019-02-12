@@ -3,9 +3,9 @@
   <img class="logo" [src]="'../../assets/images/logo_'+engine+'.png'" alt="logo">
 </div>
 <div class="search-box">
-  <div>
+  <div class="rounded">
     <div class="search-input-box">
-      <input class="search-input">
+      <input #searchInput class="search-input" (input)="searchText.next($event.target.value)">
     </div>
     <button class="search-button">
       <div>
@@ -15,4 +15,5 @@
       </div>
     </button>
   </div>
+  <app-suggestion [input]="searchText" (output)="searchInput.value=$event"></app-suggestion>
 </div>

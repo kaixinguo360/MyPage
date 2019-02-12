@@ -35,3 +35,10 @@ html, body {
   margin: 8px;
   fill: gray;
 }
+
+.rounded {
+  display: flex;
+  border: 1px solid #DFE1E5;
+  border-radius: 20px;
+  background: #fff;
+}

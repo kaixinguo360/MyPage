@@ -1,0 +1,5 @@
+<div class="su-box rounded" *ngIf="suggestions.length>0">
+  <ul class="su-list">
+    <li *ngFor="let s of suggestions" (click)="output.emit(s);suggestions.length=0">{{s}}</li>
+  </ul>
+</div>

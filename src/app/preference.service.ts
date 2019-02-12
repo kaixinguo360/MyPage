@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class PreferenceService {
 
   public setPreference(key: string, value: string) {
-    localStorage.setItem('searchEngine', value);
+    localStorage.setItem(key, value);
   }
 
   public getPreference(key: string): string {

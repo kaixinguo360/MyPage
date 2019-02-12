@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {PreferenceService} from '../preference.service';
+import { Subject } from 'rxjs';
+
+import { PreferenceService } from '../preference.service';
 
 @Component({
   selector: 'app-main',
@@ -9,6 +11,7 @@ import {PreferenceService} from '../preference.service';
 export class MainComponent implements OnInit {
 
   engine = this.preference.getPreference('searchEngine');
+  searchText = new Subject<string>();
 
   constructor(private preference: PreferenceService) { }
 
