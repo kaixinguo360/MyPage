@@ -1,0 +1,26 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.header>div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.icon-box {
+  position: absolute;
+  right: 0;
+  margin: 8px;
+}
+
+.icon-box>svg {
+  width: 32px;
+  height: 32px;
+  margin: 8px;
+  fill: gray;
+}
