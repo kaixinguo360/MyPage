@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { PreferenceService } from '../preference.service';
 import { EngineService } from '../engines/engine.service';
-import { Engine } from '../engines/engines';
+import { Engine } from '../engines/engine.service';
 
 @Component({
   selector: 'app-suggestion',
@@ -19,7 +19,8 @@ export class SuggestionComponent implements OnInit {
 
   @Output() output: EventEmitter<string> = new EventEmitter<string>();
 
-  engine: Engine;
+  suggestionEngine: Engine;
+  searchEngine: Engine;
   suggestions: string[] = [];
   selected = -1;
 
@@ -50,7 +51,7 @@ export class SuggestionComponent implements OnInit {
   inputChange(input: string) {
     this.inputText = input;
     window.stop();
-    this.engine.suggestion(input)
+    this.suggestionEngine.suggestion(input)
       .subscribe(suggestions => {
         this.selected = -1;
         this.suggestions.length = 0;
@@ -67,8 +68,11 @@ export class SuggestionComponent implements OnInit {
   ngOnInit() {
     this.input.subscribe(input => this.inputChange(input));
 
-    const engineId = this.preferenceService.getPreference('suggestionEngine');
-    this.engine = this.engineService.getSuggestionEngine(engineId);
+    const suggestionEngineId = this.preferenceService.getPreference('suggestionEngine');
+    this.suggestionEngine = this.engineService.getSuggestionEngine(suggestionEngineId);
+
+    const searchEngineId = this.preferenceService.getPreference('searchEngine');
+    this.searchEngine = this.engineService.getSearchEngine(searchEngineId);
   }
 
 }

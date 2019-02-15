@@ -1,26 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
+import { Engine } from './engine.service';
 import { Google } from './google';
 import { Baidu } from './baidu';
-
-export interface Engine {
-  name: string;
-  id: string;
-  search?: (key: string) => void;
-  suggestion?: (key: string) => Observable<string[]>;
-}
 
 @Injectable({
   providedIn: 'root'
 })
-export class Engines {
+export class PresetEngines {
 
   public defaultSearch = this.google;
 
   public defaultSuggestion = this.google;
 
-  public all: Engine[] = [
+  public engines: Engine[] = [
     this.google,
     this.baidu
   ];

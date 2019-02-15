@@ -1,6 +1,8 @@
 <app-header mode="main"></app-header>
 <div class="logo-box">
-  <img class="logo" [src]="'../../assets/images/logo_'+engine.id+'.png'" alt="logo">
+  <img class="logo"
+       [src]="engine.logo!=null?engine.logo:engineService.defaultSearch.logo"
+       alt="logo">
 </div>
 <div #searchBox
      class="search-box"

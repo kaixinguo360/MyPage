@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { Engine } from './engines';
+import { Engine } from './engine.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class Baidu implements Engine {
 
   public id = 'baidu';
   public name = '百度';
+  public logo = '../../assets/images/logo_baidu.png';
 
   public search(key: string) {
     window.location.href = 'https://www.baidu.com/s?wd=' + key;

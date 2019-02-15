@@ -26,3 +26,28 @@
   position: absolute;
   right: 0;
 }
+
+.custom-engine {
+  display: flex;
+  margin: 12px auto;
+}
+
+.custom-engine-name {
+  flex: 0 1 auto;
+  max-width: 5em;
+  min-width: 1em;
+  margin: 0 5px;
+}
+
+.custom-engine-url {
+  flex: 1;
+  min-width: 5em;
+  margin: 0 5px;
+}
+
+.custom-engine-btn {
+  flex: 0 1 auto;
+  width: 4em;
+  margin: 0 5px;
+  white-space:nowrap;
+}

@@ -3,7 +3,7 @@
     <li *ngFor="let s of suggestions; index as i;"
         class="su-item"
         [class.selected]="i == selected">
-      <div class="su-text" (click)="engine.search(s)">{{s}}</div>
+      <div class="su-text" (click)="searchEngine.search(s)">{{s}}</div>
       <div class="su-icon" (click)="outputChange(s);suggestions.length=0">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path d="M0 0h24v24H0z" fill="none"></path>

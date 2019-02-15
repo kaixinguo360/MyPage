@@ -2,7 +2,7 @@
 <div class="settings">
   <div class="set-catalog">
     <div class="set-catalog-title">
-      <h2>搜索</h2>
+      <h2>默认设置</h2>
     </div>
     <hr>
     <div class="set-item">
@@ -12,10 +12,31 @@
       </select>
     </div>
     <div class="set-item">
-      联想词来源
+      搜索建议
       <select class="set" [(ngModel)]="suggestionEngine" (change)="save()">
         <option *ngFor="let e of suggestionEngines" [value]="e.id">{{e.name}}</option>
       </select>
+    </div>
+  </div>
+  <div class="set-catalog">
+    <div class="set-catalog-title">
+      <h2>自定义搜索引擎</h2>
+    </div>
+    <hr>
+    <div class="set-item">
+      <div class="custom-engine"
+           *ngFor="let e of customEngines;index as i">
+        <input #name class="custom-engine-name" placeholder="标题" [(ngModel)]="e.name" [disabled]="true">
+        <input #url class="custom-engine-url" placeholder="网址" [(ngModel)]="e.url" [disabled]="true">
+        <button #editBtn class="custom-engine-btn" (click)="name.disabled=false;url.disabled=false;saveBtn.hidden=false;editBtn.hidden=true;">编辑</button>
+        <button #saveBtn class="custom-engine-btn" (click)="name.disabled=true;url.disabled=true;saveBtn.hidden=true;editBtn.hidden=false;save();update();" [hidden]="true">保存</button>
+        <button class="custom-engine-btn" (click)="customEngines.splice(i,1);save();update();">删除</button>
+      </div>
+      <div class="custom-engine">
+        <input #newName class="custom-engine-name" placeholder="标题">
+        <input #newUrl class="custom-engine-url" style="min-width: 9em" placeholder="网址(用'%s'代替搜索字词)">
+        <button class="custom-engine-btn" (click)="customEngines.push({id: getRandomId(), name: newName.value, url: newUrl.value});newName.value='';newUrl.value='';save();update();">添加</button>
+      </div>
     </div>
   </div>
 </div>
