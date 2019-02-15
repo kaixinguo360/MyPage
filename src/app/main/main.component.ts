@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { PreferenceService } from '../preference.service';
+import { EngineService } from '../engines/engine.service';
+import { Engine } from '../engines/engines';
 
 @Component({
   selector: 'app-main',
@@ -10,12 +12,17 @@ import { PreferenceService } from '../preference.service';
 })
 export class MainComponent implements OnInit {
 
-  engine = this.preference.getPreference('searchEngine');
+  engine: Engine;
   searchText = new Subject<string>();
 
-  constructor(private preference: PreferenceService) { }
+  constructor(
+    private preferenceService: PreferenceService,
+    private engineService: EngineService
+  ) { }
 
   ngOnInit() {
+    const engineId = this.preferenceService.getPreference('searchEngine');
+    this.engine = this.engineService.getSuggestionEngine(engineId);
   }
 
 }
