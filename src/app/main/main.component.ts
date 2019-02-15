@@ -14,6 +14,7 @@ export class MainComponent implements OnInit {
 
   engine: Engine;
   searchText = new Subject<string>();
+  enableSuggestion = false;
 
   search(key: string) {
     key = key.trim();

@@ -13,15 +13,46 @@ import { Engine } from '../engines/engines';
 })
 export class SuggestionComponent implements OnInit {
 
+  @Input() enable: boolean;
   @Input() input: Observable<string>;
-  @Output() output: EventEmitter<string> = new EventEmitter<string>();
-  suggestions: string[] = [];
-  engine: Engine;
+  inputText: string;
 
-  private inputChange(input: string) {
+  @Output() output: EventEmitter<string> = new EventEmitter<string>();
+
+  engine: Engine;
+  suggestions: string[] = [];
+  selected = -1;
+
+  keydown(event: KeyboardEvent) {
+    const length = this.suggestions.length;
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        if (this.selected >= -1 && this.selected < length - 1) {
+          this.selected++;
+        }
+        this.outputChange(this.selected === -1 ? this.inputText : this.suggestions[this.selected]);
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        if (this.selected > -1 && this.selected < length) {
+          this.selected--;
+        }
+        this.outputChange(this.selected === -1 ? this.inputText : this.suggestions[this.selected]);
+        break;
+    }
+  }
+
+  outputChange(output: string) {
+    this.output.emit(output);
+  }
+
+  inputChange(input: string) {
+    this.inputText = input;
     window.stop();
     this.engine.suggestion(input)
       .subscribe(suggestions => {
+        this.selected = -1;
         this.suggestions.length = 0;
         this.suggestions.push.apply(this.suggestions, suggestions);
       });
