@@ -9,6 +9,8 @@ import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { SettingComponent } from './setting/setting.component';
 import { SuggestionComponent } from './suggestion/suggestion.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { SuggestionComponent } from './suggestion/suggestion.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
