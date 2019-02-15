@@ -15,6 +15,13 @@ export class MainComponent implements OnInit {
   engine: Engine;
   searchText = new Subject<string>();
 
+  search(key: string) {
+    key = key.trim();
+    if (key.length > 0) {
+      this.engine.search(key);
+    }
+  }
+
   constructor(
     private preferenceService: PreferenceService,
     private engineService: EngineService
