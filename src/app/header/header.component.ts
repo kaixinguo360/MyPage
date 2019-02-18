@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 
+import { fromEvent } from 'rxjs';
+
 import { ToastService } from '../toast.service';
 
 @Component({
@@ -39,6 +41,10 @@ export class HeaderComponent implements OnInit {
         this.toasts.push(toast.text);
         setTimeout(() => this.toasts.shift(), toast.time);
       });
+
+    if (!navigator.onLine) { this.toastService.toast('⚠️未连接到网络'); }
+    fromEvent(window, 'online').subscribe(() => this.toastService.toast('ℹ️已连接到网络'));
+    fromEvent(window, 'offline').subscribe(() => this.toastService.toast('⚠️未连接到网络'));
   }
 
 }
