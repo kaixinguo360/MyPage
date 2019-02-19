@@ -13,7 +13,7 @@ export class Baidu implements Engine {
 
   public id = 'baidu';
   public name = '百度';
-  public logo = 'assets/images/logo_baidu.png';
+  public logo = 'data/assets/images/logo_baidu.png';
 
   public search(key: string) {
     window.location.href = 'https://www.baidu.com/s?wd=' + key;

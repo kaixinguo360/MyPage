@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PreferenceService } from '../preference.service';
 import { Engine, EngineService } from '../engines/engine.service';
 import { CustomEngineData } from '../engines/custom-engine';
+import { SyncService } from '../sync.service';
 
 @Component({
   selector: 'app-setting',
@@ -16,15 +17,22 @@ export class SettingComponent implements OnInit {
   suggestionEngines: Engine[];
   suggestionEngine: string;
   customEngines: CustomEngineData[];
+  userName: string;
+  userPassword: string;
 
   getRandomId(): string {
     return 'custom-' + Math.ceil(Math.random() * 10000);
   }
 
-  save() {
+  saveEngines() {
     this.preferenceService.setPreference('searchEngine', this.searchEngine);
     this.preferenceService.setPreference('suggestionEngine', this.suggestionEngine);
     this.engineService.saveCustomEngineData(this.customEngines);
+  }
+
+  saveAuthorization() {
+    this.syncService.setAuthorization(this.userName, this.userPassword);
+    this.userPassword = '';
   }
 
   update() {
@@ -33,11 +41,14 @@ export class SettingComponent implements OnInit {
     this.suggestionEngines = this.engineService.getSuggestionEngines();
     this.suggestionEngine = this.preferenceService.getPreference('suggestionEngine');
     this.customEngines = this.engineService.getCustomEngineData();
+    this.userName = this.preferenceService.getPreference('userName');
+    this.userPassword = '';
   }
 
   constructor(
     private preferenceService: PreferenceService,
-    private engineService: EngineService
+    private engineService: EngineService,
+    public syncService: SyncService
   ) { }
 
   ngOnInit() {

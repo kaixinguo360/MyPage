@@ -27,7 +27,7 @@
   right: 0;
 }
 
-.custom-engine {
+.flex-box {
   display: flex;
   margin: 12px auto;
 }
@@ -45,7 +45,13 @@
   margin: 0 5px;
 }
 
-.custom-engine-btn {
+.flex-simple {
+  flex: 1;
+  min-width: 1em;
+  margin: 0 5px;
+}
+
+.flex-btn {
   flex: 0 1 auto;
   width: 4em;
   margin: 0 5px;

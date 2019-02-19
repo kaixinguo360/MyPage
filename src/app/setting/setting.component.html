@@ -7,13 +7,13 @@
     <hr>
     <div class="set-item">
       搜索引擎
-      <select class="set" [(ngModel)]="searchEngine" (change)="save()">
+      <select class="set" [(ngModel)]="searchEngine" (change)="saveEngines()">
         <option *ngFor="let e of searchEngines" [value]="e.id">{{e.name}}</option>
       </select>
     </div>
     <div class="set-item">
       搜索建议
-      <select class="set" [(ngModel)]="suggestionEngine" (change)="save()">
+      <select class="set" [(ngModel)]="suggestionEngine" (change)="saveEngines()">
         <option *ngFor="let e of suggestionEngines" [value]="e.id">{{e.name}}</option>
       </select>
     </div>
@@ -24,18 +24,38 @@
     </div>
     <hr>
     <div class="set-item">
-      <div class="custom-engine"
+      <div class="flex-box"
            *ngFor="let e of customEngines;index as i">
         <input #name class="custom-engine-name" placeholder="标题" [(ngModel)]="e.name" [disabled]="true">
         <input #url class="custom-engine-url" placeholder="网址" [(ngModel)]="e.url" [disabled]="true">
-        <button #editBtn class="custom-engine-btn" (click)="name.disabled=false;url.disabled=false;saveBtn.hidden=false;editBtn.hidden=true;">编辑</button>
-        <button #saveBtn class="custom-engine-btn" (click)="name.disabled=true;url.disabled=true;saveBtn.hidden=true;editBtn.hidden=false;save();update();" [hidden]="true">保存</button>
-        <button class="custom-engine-btn" (click)="customEngines.splice(i,1);save();update();">删除</button>
+        <button #editBtn class="flex-btn" (click)="name.disabled=false;url.disabled=false;saveBtn.hidden=false;editBtn.hidden=true;">编辑</button>
+        <button #saveBtn class="flex-btn" (click)="name.disabled=true;url.disabled=true;saveBtn.hidden=true;editBtn.hidden=false;saveEngines();update();" [hidden]="true">保存</button>
+        <button class="flex-btn" (click)="customEngines.splice(i,1);saveEngines();update();">删除</button>
       </div>
-      <div class="custom-engine">
+      <div class="flex-box">
         <input #newName class="custom-engine-name" placeholder="标题">
         <input #newUrl class="custom-engine-url" style="min-width: 9em" placeholder="网址(用'%s'代替搜索字词)">
-        <button class="custom-engine-btn" (click)="customEngines.push({id: getRandomId(), name: newName.value, url: newUrl.value});newName.value='';newUrl.value='';save();update();">添加</button>
+        <button class="flex-btn" (click)="customEngines.push({id: getRandomId(), name: newName.value, url: newUrl.value});newName.value='';newUrl.value='';saveEngines();update();">添加</button>
+      </div>
+    </div>
+  </div>
+  <div class="set-catalog">
+    <div class="set-catalog-title">
+      <h2>云同步</h2>
+    </div>
+    <hr>
+    <div class="set-item">
+      <div class="flex-box">
+        <input #userNameBox class="flex-simple" placeholder="用户名" [(ngModel)]="userName" disabled>
+        <input #userPasswordBox class="flex-simple" placeholder="密码" [(ngModel)]="userPassword" disabled type="password">
+        <button #saveUser class="flex-btn" (click)="saveAuthorization();userNameBox.disabled=true;userPasswordBox.disabled=true;saveUser.hidden=true;editUser.hidden=false;" [hidden]="true">保存</button>
+        <button #editUser class="flex-btn" (click)="userNameBox.disabled=false;userPasswordBox.disabled=false;saveUser.hidden=false;editUser.hidden=true;">编辑</button>
+        <button class="flex-btn" (click)="syncService.syncData()" [disabled]="!userName">同步</button>
+      </div>
+      <div class="flex-box">
+        <div #exportDiv class="flex-simple"></div>
+        <input #exportBox class="flex-simple" hidden>
+        <button class="flex-btn" (click)="exportBox.value=syncService.exportDataString();exportBox.hidden=false;exportDiv.hidden=true;">导出</button>
       </div>
     </div>
   </div>
