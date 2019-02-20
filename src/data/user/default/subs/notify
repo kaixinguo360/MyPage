@@ -1,0 +1,4 @@
+[notify]
+title = "通知"
+url = "."
+content = "New Message"

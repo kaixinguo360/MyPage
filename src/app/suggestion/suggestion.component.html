@@ -1,7 +1,7 @@
 <div class="su-box rounded" *ngIf="enable&&suggestions.length>0" (window:keydown)="keydown($event)">
-  <ul class="su-list">
+  <ul class="rounded-list">
     <li *ngFor="let s of suggestions; index as i;"
-        class="su-item"
+        class="rounded-item"
         [class.selected]="i == selected">
       <div class="su-text" (click)="searchEngine.search(s)">{{s}}</div>
       <div class="su-icon" (click)="outputChange(s);suggestions.length=0">

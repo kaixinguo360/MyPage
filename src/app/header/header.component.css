@@ -13,23 +13,12 @@
   height: 100%;
 }
 
-.info-box {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 8px;
-  overflow: hidden;
+.right {
+  right: 0;
 }
 
-.toasts {
-  flex: 0 0 auto;
-  margin: 0 8px;
-  padding: 8px 16px;
-  color: gray;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.left {
+  left: 0;
 }
 
 .icon-box {
@@ -39,6 +28,9 @@
 
 .icon-box>div {
   display: inline-block;
+}
+
+.icon-btn {
   outline: none;
   cursor: pointer;
 }
@@ -50,10 +42,87 @@
   fill: gray;
 }
 
-.right {
-  right: 0;
+.toast-box {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 8px;
+  overflow: hidden;
 }
 
-.left {
-  left: 0;
+.toast {
+  flex: 0 0 auto;
+  margin: 0 8px;
+  padding: 8px 16px;
+  color: gray;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.msg-box {
+  position: relative;
+}
+
+.msg-unread {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 1.35em;
+  height: 1.35em;
+  font-size: 0.8em;
+  text-align: center;
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.msg-list {
+  position: absolute;
+  top: 70%;
+  right: 50%;
+  width: calc(100vw - 130px);
+  max-width: 300px;
+  box-shadow: 3px 3px 6px #888888;
+  z-index: 2;
+}
+
+.msg-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 10px 16px;
+}
+
+.msg-icon {
+  flex: 0 1 auto;
+  margin-right: 16px;
+}
+
+.msg-text {
+  display: flex;
+  flex: 1;
+  flex-flow: column;
+  min-width: 0;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.msg-btn {
+  flex: 0 1 auto;
+  margin-left: 16px;
+  text-decoration: underline;
+  color: gray;
+}
+
+.msg-title {
+  overflow: hidden;
+}
+
+.msg-content {
+  font-size: 0.8em;
+  color: gray;
+  overflow: hidden;
 }

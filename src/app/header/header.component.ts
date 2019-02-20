@@ -4,6 +4,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 import { fromEvent } from 'rxjs';
 
 import { ToastService } from '../toast.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-header',
@@ -30,21 +31,27 @@ export class HeaderComponent implements OnInit {
 
   @Input() mode: string;
   toasts: string[] = [];
+  showNotificationBox = false;
+  location = location;
 
   constructor(
-    private toastService: ToastService
+    private toastService: ToastService,
+    public messageService: MessageService
   ) { }
 
   ngOnInit() {
-    this.toastService.getSubscription()
+    // 显示Toast
+    this.toastService.getToast()
       .subscribe(toast => {
         this.toasts.push(toast.text);
         setTimeout(() => this.toasts.shift(), toast.time);
       });
 
+    // 显示网络状况
     if (!navigator.onLine) { this.toastService.toast('⚠️未连接到网络'); }
     fromEvent(window, 'online').subscribe(() => this.toastService.toast('ℹ️已连接到网络'));
     fromEvent(window, 'offline').subscribe(() => this.toastService.toast('⚠️未连接到网络'));
+
   }
 
 }

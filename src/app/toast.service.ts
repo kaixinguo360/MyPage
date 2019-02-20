@@ -8,7 +8,7 @@ export class ToastService {
 
   private subject = new Subject<{ time: number; text: string }>();
 
-  public getSubscription(): Observable<{ time: number; text: string }> {
+  public getToast(): Observable<{ time: number; text: string }> {
     return this.subject;
   }
 

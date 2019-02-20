@@ -10,3 +10,34 @@ html, body {
   border-radius: 20px;
   background: #fff;
 }
+
+.rounded-list {
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rounded-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.rounded-item:first-child {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.rounded-item:last-child {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.rounded-item:not(:last-child) {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.rounded-item:hover {
+  background: #eee;
+}

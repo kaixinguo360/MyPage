@@ -4,37 +4,6 @@
   margin: 0 auto;
 }
 
-.su-list {
-  width: 100%;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.su-item {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.su-item:first-child {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-
-.su-item:last-child {
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-.su-item:not(:last-child) {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.su-item:hover {
-  background: #eee;
-}
-
 .su-text{
   flex: 1;
   min-height: 1em;

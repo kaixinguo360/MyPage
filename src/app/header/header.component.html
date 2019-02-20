@@ -1,23 +1,74 @@
 <div class="header">
   <div>
     <div class="icon-box left" *ngIf="mode=='back'">
-      <div routerLink="">
+      <div class="icon-btn" routerLink="">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path d="M0 0h24v24H0z" fill="none"></path>
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
         </svg>
       </div>
     </div>
-    <div class="info-box">
-      <div class="toasts rounded" *ngFor="let t of toasts" @fadeIn>{{t}}</div>
+    <div class="toast-box">
+      <div class="toast rounded" *ngFor="let t of toasts" @fadeIn>{{t}}</div>
     </div>
     <div class="icon-box right" *ngIf="mode=='main'">
-      <div class="notification">
-        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"></path>
-        </svg>
+      <div #msgBox class="msg-box" (document:click)="showNotificationBox=msgBox.contains($event.target)">
+        <div class="msg-list rounded" *ngIf="showNotificationBox" @fadeIn>
+          <ul class="rounded-list">
+            <li class="rounded-item" *ngIf="messageService._notify.length==0&&messageService._info.length==0">
+              <div class="msg-item">
+                <div class="msg-icon">
+                  ℹ️
+                </div>
+                <div class="msg-text">
+                  <div class="msg-title">没有未读消息</div>
+                </div>
+              </div>
+            </li>
+            <li class="rounded-item" *ngFor="let m of messageService._notify">
+              <div class="msg-item" (click)="m.url?location.href=m.url:0">
+                <div class="msg-icon">
+                  🔔
+                </div>
+                <div class="msg-text">
+                  <div class="msg-title">
+                    {{m.title}}
+                  </div>
+                  <div class="msg-content">
+                    {{m.content}}
+                  </div>
+                </div>
+                <div class="msg-btn" *ngIf="m.url">查看</div>
+              </div>
+            </li>
+            <li class="rounded-item" *ngFor="let m of messageService._info">
+              <div class="msg-item" (click)="m.url?location.href=m.url:0">
+                <div class="msg-icon">
+                  ℹ️
+                </div>
+                <div class="msg-text">
+                  <div class="msg-title">
+                    {{m.title}}
+                  </div>
+                  <div class="msg-content">
+                    {{m.content}}
+                  </div>
+                </div>
+                <div class="msg-btn" *ngIf="m.url">查看</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="msg-unread" *ngIf="messageService._notify.length>0">
+          {{messageService._notify.length}}
+        </div>
+        <div class="icon-btn">
+          <svg class="icon" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"></path>
+          </svg>
+        </div>
       </div>
-      <div routerLink="settings">
+      <div class="icon-btn" routerLink="settings">
         <svg class="icon"
              xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
           <path fill="none" d="M0 0h20v20H0V0z"></path>
