@@ -1,0 +1,31 @@
+.sc-box {
+  position: absolute;
+  width: 100%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 100%;
+}
+
+.sc-text{
+  flex: 1;
+  min-height: 1em;
+  padding: 10px 0 10px 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sc-icon {
+  display: flex;
+  flex: 0 1;
+  align-self: stretch;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.sc-icon>svg {
+  width: 1.8em;
+  height: 1.8em;
+  fill: gray;
+}

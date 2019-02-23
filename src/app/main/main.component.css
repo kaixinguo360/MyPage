@@ -42,20 +42,17 @@
   width: 100%;
 }
 
-.search-button {
+.btn {
   display: flex;
-  border-radius: 0 20px 20px 0;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: #3b78e7;
-  border: 1px solid #3367d6;
   margin: -1px;
   outline: none;
   flex: 0 0 auto;
   cursor: pointer;
 }
 
-.search-button>div {
+.btn>div {
   background: none;
   color: #fff;
   height: 24px;
@@ -63,9 +60,29 @@
   margin: auto;
 }
 
-.search-button>div>svg {
+.btn>div>svg {
   display: block;
   height: 100%;
   width: 100%;
+}
+
+.search-btn {
+  border-radius: 0 20px 20px 0;
+  background-color: #3b78e7;
+  border: 1px solid #3367d6;
+}
+
+.search-btn>div>svg {
   fill: #fff;
+}
+
+.shortcut-btn {
+  background-color: white;
+  border: 1px solid #DFE1E5;
+  border-right-width: 0;
+  border-left-width: 0;
+}
+
+.shortcut-btn>div>svg {
+  fill: #DFE1E5;
 }

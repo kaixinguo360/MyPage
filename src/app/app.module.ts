@@ -7,11 +7,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { environment } from '../environments/environment';
 import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { SettingComponent } from './setting/setting.component';
 import { SuggestionComponent } from './suggestion/suggestion.component';
-import { environment } from '../environments/environment';
+import { ShortcutComponent } from './shortcut/shortcut.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { environment } from '../environments/environment';
     HeaderComponent,
     MainComponent,
     SettingComponent,
-    SuggestionComponent
+    SuggestionComponent,
+    ShortcutComponent
   ],
   imports: [
     FormsModule,
