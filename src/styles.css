@@ -1,3 +1,26 @@
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #18191a;
+    color: #d0cec8;
+  }
+
+  input {
+    color: #d0cec8;
+  }
+
+  .rounded {
+    background-color: #18191a;
+  }
+}
+
+/* Light Mode */
+@media (prefers-color-scheme: light) {
+  .rounded {
+    background-color: #fff;
+  }
+}
+
 html, body {
   width: 100%;
   height: 100%;
@@ -8,7 +31,6 @@ html, body {
   display: flex;
   border: 1px solid #DFE1E5;
   border-radius: 20px;
-  background: #fff;
 }
 
 .rounded-list {
