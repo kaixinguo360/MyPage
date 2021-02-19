@@ -9,7 +9,7 @@
      (document:click)="enableSuggestion=searchBox.contains($event.target)">
   <div class="rounded">
     <div class="search-input-box">
-      <input #searchInput class="search-input"
+      <input #searchInput class="search-input" autofocus="autofocus"
              (input)="searchText.next($event.target.value)"
              (keydown.enter)="search(searchInput.value)">
     </div>
