@@ -75,6 +75,10 @@ export class EngineService {
     return engine == null ? this.defaultSuggestion : engine;
   }
 
+  public getLogoEngines(): Engine[] {
+    return this.engines.filter(e => e.logo != null);
+  }
+
   private updateEngines() {
     this.defaultSearch = this.presetEngines.defaultSearch;
     this.defaultSuggestion = this.presetEngines.defaultSuggestion;

@@ -39,7 +39,7 @@
   margin: 0 5px;
 }
 
-.custom-engine-url {
+.custom-engine-url, .custom-logo-url {
   flex: 1;
   min-width: 5em;
   margin: 0 5px;

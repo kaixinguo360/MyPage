@@ -17,6 +17,21 @@
         <option *ngFor="let e of suggestionEngines" [value]="e.id">{{e.name}}</option>
       </select>
     </div>
+    <div class="set-item">
+      Logo
+      <select class="set" [(ngModel)]="customLogoId" (change)="saveCustomLogo()">
+        <option value="default">默认</option>
+        <option *ngFor="let e of logoEngines" [value]="e.id">{{e.name}}</option>
+        <option value="custom">自定义</option>
+      </select>
+    </div>
+    <div class="set-item" [hidden]="customLogoId!=='custom'">
+      <div class="flex-box">
+        <input #url class="custom-logo-url" placeholder="自定义 Logo URL" [(ngModel)]="customLogoUrl" [disabled]="true">
+        <button #editBtn class="flex-btn" (click)="url.disabled=false;saveBtn.hidden=false;editBtn.hidden=true;">编辑</button>
+        <button #saveBtn class="flex-btn" (click)="url.disabled=true;saveBtn.hidden=true;editBtn.hidden=false;saveCustomLogoUrl()" [hidden]="true">保存</button>
+      </div>
+    </div>
   </div>
   <div class="set-catalog">
     <div class="set-catalog-title">

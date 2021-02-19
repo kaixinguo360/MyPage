@@ -14,9 +14,16 @@ export class SettingComponent implements OnInit {
 
   searchEngines: Engine[];
   searchEngine: string;
+
   suggestionEngines: Engine[];
   suggestionEngine: string;
+
+  logoEngines: Engine[];
+  customLogoId: string;
+  customLogoUrl: string;
+
   customEngines: CustomEngineData[];
+
   userName: string;
   userPassword: string;
 
@@ -30,6 +37,24 @@ export class SettingComponent implements OnInit {
     this.engineService.saveCustomEngineData(this.customEngines);
   }
 
+  saveCustomLogo() {
+    this.customLogoUrl = '';
+    this.preferenceService.setPreference('customLogoId', this.customLogoId);
+    switch (this.customLogoId) {
+      case 'default':
+      case 'custom':
+        this.preferenceService.setPreference('customLogoUrl', '');
+        break;
+      default:
+        this.preferenceService.setPreference('customLogoUrl', this.engineService.getSearchEngine(this.customLogoId).logo);
+        break;
+    }
+  }
+
+  saveCustomLogoUrl() {
+    this.preferenceService.setPreference('customLogoUrl', this.customLogoUrl);
+  }
+
   saveAuthorization() {
     this.syncService.setAuthorization(this.userName, this.userPassword);
     this.userPassword = '';
@@ -38,9 +63,16 @@ export class SettingComponent implements OnInit {
   update() {
     this.searchEngines = this.engineService.getSearchEngines();
     this.searchEngine = this.preferenceService.getPreference('searchEngine');
+
     this.suggestionEngines = this.engineService.getSuggestionEngines();
     this.suggestionEngine = this.preferenceService.getPreference('suggestionEngine');
+
+    this.logoEngines = this.engineService.getLogoEngines();
+    this.customLogoId = this.preferenceService.getPreference('customLogoId');
+    this.customLogoUrl = this.preferenceService.getPreference('customLogoUrl');
+
     this.customEngines = this.engineService.getCustomEngineData();
+
     this.userName = this.preferenceService.getPreference('userName');
     this.userPassword = '';
   }

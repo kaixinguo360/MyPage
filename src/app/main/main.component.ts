@@ -13,6 +13,7 @@ import { Engine } from '../engines/engine.service';
 export class MainComponent implements OnInit {
 
   engine: Engine;
+  customLogoUrl: string;
   searchText = new Subject<string>();
   enableSuggestion = false;
   openShortcut = false;
@@ -32,6 +33,7 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     const engineId = this.preferenceService.getPreference('searchEngine');
     this.engine = this.engineService.getSearchEngine(engineId);
+    this.customLogoUrl = this.preferenceService.getPreference('customLogoUrl');
   }
 
 }
