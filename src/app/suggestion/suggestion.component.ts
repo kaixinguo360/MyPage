@@ -51,12 +51,17 @@ export class SuggestionComponent implements OnInit {
   inputChange(input: string) {
     this.inputText = input;
     window.stop();
-    this.suggestionEngine.suggestion(input)
-      .subscribe(suggestions => {
-        this.selected = -1;
-        this.suggestions.length = 0;
-        this.suggestions.push.apply(this.suggestions, suggestions);
-      });
+    if (input) {
+      this.suggestionEngine.suggestion(input)
+        .subscribe(suggestions => {
+          this.selected = -1;
+          this.suggestions.length = 0;
+          this.suggestions.push.apply(this.suggestions, suggestions);
+        });
+    } else {
+      this.selected = -1;
+      this.suggestions.length = 0;
+    }
   }
 
   constructor(

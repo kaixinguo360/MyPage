@@ -11,6 +11,7 @@
     <div class="search-input-box">
       <input #searchInput class="search-input" autofocus="autofocus"
              (input)="searchText.next($event.target.value)"
+             (keydown.tab)="$event.preventDefault();changeEngine(searchInput.value)?searchInput.value=null:null"
              (keydown.enter)="search(searchInput.value)">
     </div>
     <button #shortcutBtn class="btn shortcut-btn"

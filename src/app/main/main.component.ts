@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { PreferenceService } from '../preference.service';
 import { EngineService } from '../engines/engine.service';
 import { Engine } from '../engines/engine.service';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-main',
@@ -25,8 +26,22 @@ export class MainComponent implements OnInit {
     }
   }
 
+  changeEngine(text): boolean {
+    const engine = this.engineService.findEngine(text);
+    if (engine) {
+      this.engine = engine;
+      this.customLogoUrl = null;
+      this.searchText.next('');
+      this.toastService.toast(`ℹ️切换搜索引擎: ${engine.name}`);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   constructor(
     private preferenceService: PreferenceService,
+    private toastService: ToastService,
     public engineService: EngineService
   ) { }
 

@@ -7,6 +7,7 @@ import { CustomEngine, CustomEngineData } from './custom-engine';
 
 export interface Engine {
   name: string;
+  shortName?: string;
   id: string;
   logo?: string;
   search?: (key: string) => void;
@@ -32,24 +33,20 @@ export class EngineService {
     engines.push(newEngine);
     this.saveCustomEngineData(engines);
   }
-
   public removeCustomEngineData(id: string) {
     let engines: CustomEngineData[] = this.getCustomEngineData();
     engines = engines.filter(e => e.id !== id);
     this.saveCustomEngineData(engines);
   }
-
   public getCustomEngineData(): CustomEngineData[] {
     const customs = this.preferenceService.getPreference('customEngines');
     const engines = JSON.parse(customs);
     return (engines instanceof Array) ? engines : [];
   }
-
   public saveCustomEngineData(engines: CustomEngineData[]) {
     this.preferenceService.setPreference('customEngines', JSON.stringify(engines));
     this.updateEngines();
   }
-
   private getCustomEngines(): CustomEngine[] {
     const data: CustomEngineData[] = this.getCustomEngineData();
     const engines: CustomEngine[] = [];
@@ -60,7 +57,6 @@ export class EngineService {
   public getSearchEngines(): Engine[] {
     return this.engines.filter(e => e.search != null);
   }
-
   public getSearchEngine(id: string): Engine {
     const engine = this.getSearchEngines().find(e => e.id === id);
     return engine == null ? this.defaultSearch : engine;
@@ -69,14 +65,34 @@ export class EngineService {
   public getSuggestionEngines(): Engine[] {
     return this.engines.filter(e => e.suggestion != null);
   }
-
   public getSuggestionEngine(id: string): Engine {
     const engine = this.getSuggestionEngines().find(e => e.id === id);
     return engine == null ? this.defaultSuggestion : engine;
   }
 
   public getLogoEngines(): Engine[] {
-    return this.engines.filter(e => e.logo != null);
+    return this.engines.filter(e => e.logo);
+  }
+
+  public findEngine(text: string): Engine {
+    if (!text) { return null; }
+
+    let engine;
+    text = text.toLowerCase();
+
+    engine = engine ? engine : this.engines.find(e => e.shortName ? (e.shortName.toLowerCase() === text) : false);
+    engine = engine ? engine : this.engines.find(e => e.name.toLowerCase() === text);
+    engine = engine ? engine : this.engines.find(e => e.id.toLowerCase() === text);
+
+    engine = engine ? engine : this.engines.find(e => e.shortName ? (e.shortName.toLowerCase().startsWith(text)) : false);
+    engine = engine ? engine : this.engines.find(e => e.name.toLowerCase().startsWith(text));
+    engine = engine ? engine : this.engines.find(e => e.id.toLowerCase().startsWith(text));
+
+    engine = engine ? engine : this.engines.find(e => e.shortName ? (e.shortName.toLowerCase().indexOf(text) !== -1) : false);
+    engine = engine ? engine : this.engines.find(e => e.name.toLowerCase().indexOf(text) !== -1);
+    engine = engine ? engine : this.engines.find(e => e.id.toLowerCase().indexOf(text) !== -1);
+
+    return engine;
   }
 
   private updateEngines() {
@@ -88,8 +104,8 @@ export class EngineService {
   }
 
   constructor(
-    private presetEngines: PresetEngines,
-    private preferenceService: PreferenceService
+      private presetEngines: PresetEngines,
+      private preferenceService: PreferenceService
   ) {
     this.updateEngines();
   }

@@ -13,6 +13,7 @@ export class Baidu implements Engine {
 
   public id = 'baidu';
   public name = '百度';
+  public shortName = 'baidu';
   public logo = 'data/assets/images/logo_baidu.png';
 
   public search(key: string) {
