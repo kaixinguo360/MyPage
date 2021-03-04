@@ -2,21 +2,23 @@
 <div class="logo-box">
   <img class="logo"
        [src]="customLogoUrl?customLogoUrl:(engine.logo!=null?engine.logo:engineService.defaultSearch.logo)"
+       (click)="search('')"
        alt="logo">
 </div>
 <div #searchBox
-     class="search-box"
-     (document:click)="enableSuggestion=searchBox.contains($event.target)">
+     class="search-box">
   <div class="rounded">
     <div class="search-input-box">
       <input #searchInput class="search-input"
              autofocus="autofocus" tabindex="1"
-             (input)="searchText.next($event.target.value)"
+             (focus)="enableSuggestion=true"
+             (click)="openShortcut=false;enableSuggestion=true"
+             (input)="openShortcut=false;enableSuggestion=true;searchText.next($event.target.value)"
              (keydown.tab)="$event.preventDefault();changeEngine(searchInput.value)?searchInput.value=null:null"
              (keydown.enter)="search(searchInput.value)">
     </div>
     <button #shortcutBtn class="btn shortcut-btn"
-            (document:click)="openShortcut=shortcutBtn.contains($event.target)||shortcutBox.contains($event.target)">
+            (click)="openShortcut=true;enableSuggestion=true;searchInput.focus();$event.stopPropagation()">
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path d="M7 10l5 5 5-5z"></path>
@@ -40,3 +42,4 @@
     <app-shortcut [input]="searchInput.value" [enable]="enableSuggestion&&openShortcut"></app-shortcut>
   </div>
 </div>
+<div style="height: 10px"></div>

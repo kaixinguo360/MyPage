@@ -38,6 +38,12 @@ html, body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  max-height: calc(100vh - 40vh - 40px - 46px);
+  overflow: auto;
+}
+
+.rounded-list::-webkit-scrollbar {
+  display:none
 }
 
 .rounded-item {

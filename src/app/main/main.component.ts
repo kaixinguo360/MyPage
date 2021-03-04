@@ -13,7 +13,7 @@ import { ToastService } from '../toast.service';
 })
 export class MainComponent implements OnInit {
 
-  engine: Engine;
+  public engine: Engine;
   customLogoUrl: string;
   searchText = new Subject<string>();
   enableSuggestion = false;
@@ -21,9 +21,7 @@ export class MainComponent implements OnInit {
 
   search(key: string) {
     key = key.trim();
-    if (key.length > 0) {
-      this.engine.search(key);
-    }
+    this.engine.search(key);
   }
 
   changeEngine(text): boolean {
