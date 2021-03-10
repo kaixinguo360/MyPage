@@ -1,9 +1,6 @@
 <app-header mode="main"></app-header>
 <div class="logo-box">
-  <img class="logo"
-       [src]="customLogoUrl?customLogoUrl:(engine.logo!=null?engine.logo:engineService.defaultSearch.logo)"
-       (click)="search('')"
-       alt="logo">
+  <img class="logo" [src]="logo" (click)="search('')" alt="logo">
 </div>
 <div #searchBox
      class="search-box">

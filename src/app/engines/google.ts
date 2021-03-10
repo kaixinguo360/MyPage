@@ -14,7 +14,7 @@ export class Google implements Engine {
   public id = 'google';
   public name = 'Google';
   public shortName = 'google';
-  public logo = 'data/assets/images/logo_google.png';
+  public logo = 'logo_google.png';
 
   public search(key: string) {
     window.location.href = 'https://www.google.com/search?q=' + key;

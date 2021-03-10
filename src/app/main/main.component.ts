@@ -14,7 +14,7 @@ import { ToastService } from '../toast.service';
 export class MainComponent implements OnInit {
 
   public engine: Engine;
-  customLogoUrl: string;
+  logo: string;
   searchText = new Subject<string>();
   enableSuggestion = false;
   openShortcut = false;
@@ -28,13 +28,19 @@ export class MainComponent implements OnInit {
     const engine = this.engineService.findEngine(text);
     if (engine) {
       this.engine = engine;
-      this.customLogoUrl = null;
+      this.logo = engine.logo
+        ? this.getAbsoluteLogoUrl(engine.logo)
+        : this.getAbsoluteLogoUrl(this.engineService.defaultSearch.logo);
       this.searchText.next('');
       this.toastService.toast(`ℹ️切换搜索引擎: ${engine.name}`);
       return true;
     } else {
       return false;
     }
+  }
+
+  getAbsoluteLogoUrl(logoUrl: string): string {
+    return /^https?:\/\//.test(logoUrl) ? logoUrl : ('data/assets/images/' + logoUrl);
   }
 
   constructor(
@@ -46,7 +52,8 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     const engineId = this.preferenceService.getPreference('searchEngine');
     this.engine = this.engineService.getSearchEngine(engineId);
-    this.customLogoUrl = this.preferenceService.getPreference('customLogoUrl');
+    const customLogoUrl = this.preferenceService.getPreference('customLogoUrl');
+    this.logo = customLogoUrl ? this.getAbsoluteLogoUrl(customLogoUrl) : this.getAbsoluteLogoUrl(this.engine.logo);
   }
 
 }
