@@ -11,6 +11,8 @@
              (focus)="enableSuggestion=true"
              (click)="openShortcut=false;enableSuggestion=true"
              (input)="openShortcut=false;enableSuggestion=true;searchText.next($event.target.value)"
+             (keydown.control.arrowUp)="prevEngine()"
+             (keydown.control.arrowDown)="nextEngine()"
              (keydown.tab)="$event.preventDefault();changeEngine(searchInput.value)?searchInput.value=null:null"
              (keydown.enter)="search(searchInput.value)">
     </div>

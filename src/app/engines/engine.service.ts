@@ -61,6 +61,18 @@ export class EngineService {
     const engine = this.getSearchEngines().find(e => e.id === id);
     return engine == null ? this.defaultSearch : engine;
   }
+  public getPrevSearchEngine(id: string): Engine {
+    const engines = this.getSearchEngines();
+    let engineIndex = engines.findIndex(e => e.id === id);
+    engineIndex = engineIndex === -1 ? 0 : engineIndex;
+    return engines[(engineIndex - 1 + engines.length) % engines.length];
+  }
+  public getNextSearchEngine(id: string): Engine {
+    const engines = this.getSearchEngines();
+    let engineIndex = engines.findIndex(e => e.id === id);
+    engineIndex = engineIndex === -1 ? 0 : engineIndex;
+    return engines[(engineIndex + 1 + engines.length) % engines.length];
+  }
 
   public getSuggestionEngines(): Engine[] {
     return this.engines.filter(e => e.suggestion != null);

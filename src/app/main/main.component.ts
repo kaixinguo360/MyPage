@@ -24,8 +24,10 @@ export class MainComponent implements OnInit {
     this.engine.search(key);
   }
 
-  changeEngine(text): boolean {
-    const engine = this.engineService.findEngine(text);
+  changeEngine(engine: string | Engine): boolean {
+    if (typeof(engine) === 'string') {
+      engine = this.engineService.findEngine(engine);
+    }
     if (engine) {
       this.engine = engine;
       this.logo = engine.logo
@@ -37,6 +39,16 @@ export class MainComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  prevEngine() {
+    const engine = this.engineService.getPrevSearchEngine(this.engine.id);
+    this.changeEngine(engine);
+  }
+
+  nextEngine() {
+    const engine = this.engineService.getNextSearchEngine(this.engine.id);
+    this.changeEngine(engine);
   }
 
   getAbsoluteLogoUrl(logoUrl: string): string {
