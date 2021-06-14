@@ -41,15 +41,15 @@
     <div class="set-item">
       <div class="flex-box"
            *ngFor="let e of customEngines;index as i">
-        <input #name class="custom-engine-name" placeholder="标题" [(ngModel)]="e.name" [disabled]="true">
-        <input #url class="custom-engine-url" placeholder="网址" [(ngModel)]="e.url" [disabled]="true">
+        <input #name class="custom-engine-name" placeholder="标题" [(ngModel)]="e.name" [disabled]="true" (focusin)="url.hidden=true" (focusout)="url.hidden=false">
+        <input #url class="custom-engine-url" placeholder="网址" [(ngModel)]="e.url" [disabled]="true" (focusin)="name.hidden=true" (focusout)="name.hidden=false">
         <button #editBtn class="flex-btn" (click)="name.disabled=false;url.disabled=false;saveBtn.hidden=false;editBtn.hidden=true;">编辑</button>
         <button #saveBtn class="flex-btn" (click)="name.disabled=true;url.disabled=true;saveBtn.hidden=true;editBtn.hidden=false;saveEngines();update();" [hidden]="true">保存</button>
         <button class="flex-btn" (click)="customEngines.splice(i,1);saveEngines();update();">删除</button>
       </div>
       <div class="flex-box">
-        <input #newName class="custom-engine-name" placeholder="标题">
-        <input #newUrl class="custom-engine-url" style="min-width: 9em" placeholder="网址(用'%s'代替搜索字词)">
+        <input #newName class="custom-engine-name" placeholder="标题" (focusin)="newUrl.hidden=true" (focusout)="newUrl.hidden=false">
+        <input #newUrl class="custom-engine-url" style="min-width: 9em" placeholder="网址(用'%s'代替搜索字词)" (focusin)="newName.hidden=true" (focusout)="newName.hidden=false">
         <button class="flex-btn" (click)="customEngines.push({id: getRandomId(), name: newName.value, url: newUrl.value});newName.value='';newUrl.value='';saveEngines();update();">添加</button>
       </div>
     </div>

@@ -33,15 +33,14 @@
 }
 
 .custom-engine-name {
-  flex: 0 1 auto;
-  max-width: 5em;
-  min-width: 1em;
+  flex: 1 4 auto;
+  min-width: 3em;
   margin: 0 5px;
 }
 
 .custom-engine-url, .custom-logo-url {
-  flex: 1;
-  min-width: 5em;
+  flex: 1 1 auto;
+  min-width: 2em;
   margin: 0 5px;
 }
 
