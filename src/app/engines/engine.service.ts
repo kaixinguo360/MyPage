@@ -5,6 +5,7 @@ import { PreferenceService } from '../preference.service';
 import { PresetEngines } from './preset-engines';
 import { CustomEngine, CustomEngineData } from './custom-engine';
 import {MainComponent} from '../main/main.component';
+import {ToastService} from '../toast.service';
 
 export interface Engine {
   name: string;
@@ -27,6 +28,8 @@ export interface Suggestion {
   providedIn: 'root'
 })
 export class EngineService {
+
+  public mainComponent: MainComponent;
 
   public defaultSearch: Engine;
   public defaultSuggestion: Engine;
@@ -115,6 +118,9 @@ export class EngineService {
 
     return engine;
   }
+  public changeEngine(engine: string | Engine): boolean {
+    return this.mainComponent.changeEngine(engine);
+  }
 
   private updateEngines() {
     this.defaultSearch = this.presetEngines.defaultSearch;
@@ -126,7 +132,8 @@ export class EngineService {
 
   constructor(
       private presetEngines: PresetEngines,
-      private preferenceService: PreferenceService
+      private preferenceService: PreferenceService,
+      private toastService: ToastService,
   ) {
     this.updateEngines();
   }

@@ -13,8 +13,8 @@
              (input)="openShortcut=false;enableSuggestion=true;searchText.next($event.target.value)"
              (keydown.control.arrowUp)="prevEngine()"
              (keydown.control.arrowDown)="nextEngine()"
-             (keydown.tab)="$event.preventDefault();changeEngine(searchInput.value)?searchInput.value=null:null"
-             (keydown.enter)="search(searchInput.value)">
+             (keydown.tab)="$event.preventDefault();suggestion.doSubAction()"
+             (keydown.enter)="suggestion.selected===-1?search(searchInput.value):suggestion.doMainAction()">
     </div>
     <button #shortcutBtn class="btn shortcut-btn"
             (click)="openShortcut=true;enableSuggestion=true;searchInput.focus();$event.stopPropagation()">
@@ -33,8 +33,8 @@
       </div>
     </button>
   </div>
-  <div #suggestionBox>
-    <app-suggestion [input]="searchText" [enable]="enableSuggestion&&!openShortcut"
+  <div>
+    <app-suggestion #suggestion [input]="searchText" [enable]="enableSuggestion&&!openShortcut"
                     (output)="searchInput.value=$event;searchInput.focus()"></app-suggestion>
   </div>
   <div #shortcutBox>

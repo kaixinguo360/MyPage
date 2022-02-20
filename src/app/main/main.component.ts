@@ -66,6 +66,7 @@ export class MainComponent implements OnInit {
     this.engine = this.engineService.getSearchEngine(engineId);
     const customLogoUrl = this.preferenceService.getPreference('customLogoUrl');
     this.logo = customLogoUrl ? this.getAbsoluteLogoUrl(customLogoUrl) : this.getAbsoluteLogoUrl(this.engine.logo);
+    this.engineService.mainComponent = this;
   }
 
 }

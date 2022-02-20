@@ -58,6 +58,19 @@ export class SuggestionComponent implements OnInit {
           this.selected = -1;
           this.suggestions.length = 0;
           this.suggestions.push.apply(this.suggestions, suggestions);
+
+          const engine = this.engineService.findEngine(input);
+          if (engine && engine !== this.engineService.mainComponent.engine) {
+            this.suggestions.push({
+              title: `🔍 ${engine.name}`,
+              order: 1,
+              mainAction: event => {
+                this.engineService.changeEngine(engine);
+                event.output.emit('');
+              },
+            });
+          }
+
           this.suggestions.sort((a, b) => {
             return (b.order ? b.order : 0) - (a.order ? a.order : 0);
           });
@@ -66,6 +79,45 @@ export class SuggestionComponent implements OnInit {
       this.selected = -1;
       this.suggestions.length = 0;
     }
+  }
+
+  doMainAction(suggestion?: number | Suggestion) {
+    suggestion = this.getSuggestion(suggestion);
+    if (!suggestion) {
+      return;
+    }
+
+    suggestion.mainAction(this.getSuggestionActionEvent());
+  }
+
+  doSubAction(suggestion?: number | Suggestion) {
+    suggestion = this.getSuggestion(suggestion);
+    if (!suggestion) {
+      return;
+    }
+
+    const action = suggestion.subAction ? suggestion.subAction : suggestion.mainAction;
+    action(this.getSuggestionActionEvent());
+  }
+
+  getSuggestion(suggestion?: number | Suggestion) {
+    if (!suggestion) {
+      suggestion = this.selected < 0 ? 0 : this.selected;
+    }
+
+    if (typeof(suggestion) === 'number') {
+      suggestion = this.suggestions[suggestion];
+    }
+
+    return suggestion;
+  }
+
+  getSuggestionActionEvent() {
+    return {
+      engine: this.searchEngine,
+      output: this.output,
+      suggestions: this.suggestions,
+    };
   }
 
   constructor(

@@ -33,7 +33,10 @@ export class Google implements Engine {
           su.forEach(item => suggestions.push({
             title: item[0],
             mainAction: (event) => event.engine.search(item[0]),
-            subAction: (event) => event.output.emit(item[0]),
+            subAction: (event) => {
+              event.output.emit(item[0]);
+              event.suggestions.length = 0;
+            },
           }));
           subject.next(suggestions);
         }),
