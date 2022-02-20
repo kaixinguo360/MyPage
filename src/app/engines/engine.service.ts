@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PreferenceService } from '../preference.service';
 import { PresetEngines } from './preset-engines';
 import { CustomEngine, CustomEngineData } from './custom-engine';
+import {MainComponent} from '../main/main.component';
 
 export interface Engine {
   name: string;
@@ -11,7 +12,15 @@ export interface Engine {
   id: string;
   logo?: string;
   search?: (key: string) => void;
-  suggestion?: (key: string) => Observable<string[]>;
+  suggestion?: (key: string) => Observable<Suggestion[]>;
+}
+
+export interface Suggestion {
+  title: string;
+  icon?: string;
+  order?: number;
+  mainAction?: (event: any) => void;
+  subAction?: (event: any) => void;
 }
 
 @Injectable({

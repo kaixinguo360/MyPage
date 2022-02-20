@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { PreferenceService } from '../preference.service';
-import { EngineService } from '../engines/engine.service';
+import {EngineService, Suggestion} from '../engines/engine.service';
 import { Engine } from '../engines/engine.service';
+import {MainComponent} from '../main/main.component';
 
 @Component({
   selector: 'app-suggestion',
@@ -21,7 +22,7 @@ export class SuggestionComponent implements OnInit {
 
   suggestionEngine: Engine;
   searchEngine: Engine;
-  suggestions: string[] = [];
+  suggestions: Suggestion[] = [];
   selected = -1;
 
   keydown(event: KeyboardEvent) {
@@ -32,14 +33,14 @@ export class SuggestionComponent implements OnInit {
         if (this.selected >= -1 && this.selected < length - 1) {
           this.selected++;
         }
-        this.outputChange(this.selected === -1 ? this.inputText : this.suggestions[this.selected]);
+        this.outputChange(this.selected === -1 ? this.inputText : this.suggestions[this.selected].title);
         break;
       case 'ArrowUp':
         event.preventDefault();
         if (this.selected > -1 && this.selected < length) {
           this.selected--;
         }
-        this.outputChange(this.selected === -1 ? this.inputText : this.suggestions[this.selected]);
+        this.outputChange(this.selected === -1 ? this.inputText : this.suggestions[this.selected].title);
         break;
     }
   }
@@ -57,6 +58,9 @@ export class SuggestionComponent implements OnInit {
           this.selected = -1;
           this.suggestions.length = 0;
           this.suggestions.push.apply(this.suggestions, suggestions);
+          this.suggestions.sort((a, b) => {
+            return (b.order ? b.order : 0) - (a.order ? a.order : 0);
+          });
         });
     } else {
       this.selected = -1;

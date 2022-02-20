@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { Engine } from './engine.service';
+import {Engine, Suggestion} from './engine.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class Google implements Engine {
     window.location.href = 'https://www.google.com/search?q=' + key;
   }
 
-  public suggestion(key: string): Observable<string[]> {
-    const subject = new Subject<string[]>();
+  public suggestion(key: string): Observable<Suggestion[]> {
+    const subject = new Subject<Suggestion[]>();
     this.http.jsonp('https://suggestqueries.google.com/complete/search?client=youtube&q=' + key, 'jsonp')
       .pipe(
         tap(res => {
@@ -29,8 +29,12 @@ export class Google implements Engine {
           if (su.length > 5) {
             su.length = 5;
           }
-          const suggestions: string[] = [];
-          su.forEach(item => suggestions.push(item[0]));
+          const suggestions: Suggestion[] = [];
+          su.forEach(item => suggestions.push({
+            title: item[0],
+            mainAction: (event) => event.engine.search(item[0]),
+            subAction: (event) => event.output.emit(item[0]),
+          }));
           subject.next(suggestions);
         }),
         catchError(err => of(err))

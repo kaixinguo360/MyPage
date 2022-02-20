@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { Engine } from './engine.service';
+import {Engine, Suggestion} from './engine.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class Baidu implements Engine {
     window.location.href = 'https://www.baidu.com/s?wd=' + key;
   }
 
-  public suggestion(key: string): Observable<string[]> {
-    const subject = new Subject<string[]>();
+  public suggestion(key: string): Observable<Suggestion[]> {
+    const subject = new Subject<Suggestion[]>();
     this.http.jsonp<{s: object[]}>('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + key, 'cb')
       .pipe(
         tap(res => {
@@ -29,8 +29,12 @@ export class Baidu implements Engine {
           if (su.length > 5) {
             su.length = 5;
           }
-          const suggestions: string[] = [];
-          suggestions.push.apply(suggestions, su);
+          const suggestions: Suggestion[] = [];
+          (su as unknown[]).forEach((item: string) => suggestions.push({
+            title: item,
+            mainAction: (event) => event.engine.search(item),
+            subAction: (event) => event.output.emit(item),
+          }));
           subject.next(suggestions);
         }),
         catchError(err => of(err))
