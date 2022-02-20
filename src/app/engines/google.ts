@@ -22,7 +22,7 @@ export class Google implements Engine {
 
   public suggestion(key: string): Observable<string[]> {
     const subject = new Subject<string[]>();
-    this.http.jsonp('http://suggestqueries.google.com/complete/search?client=youtube&q=' + key, 'jsonp')
+    this.http.jsonp('https://suggestqueries.google.com/complete/search?client=youtube&q=' + key, 'jsonp')
       .pipe(
         tap(res => {
           const su: object[] = res[1];
