@@ -21,7 +21,6 @@ export class SuggestionComponent implements OnInit {
   @Output() output: EventEmitter<string> = new EventEmitter<string>();
 
   suggestionEngine: Engine;
-  searchEngine: Engine;
   suggestions: Suggestion[] = [];
   selected = -1;
 
@@ -65,8 +64,8 @@ export class SuggestionComponent implements OnInit {
               title: `🔍 ${engine.name}`,
               order: 1,
               mainAction: event => {
-                this.engineService.changeEngine(engine);
-                event.output.emit('');
+                this.engineService.mainComponent.changeEngine(engine);
+                event.suggestionComponent.output.emit('');
               },
             });
           }
@@ -79,6 +78,11 @@ export class SuggestionComponent implements OnInit {
       this.selected = -1;
       this.suggestions.length = 0;
     }
+  }
+
+  clearSuggestions() {
+    this.suggestions.length = 0;
+    this.selected = 0;
   }
 
   doMainAction(suggestion?: number | Suggestion) {
@@ -114,9 +118,8 @@ export class SuggestionComponent implements OnInit {
 
   getSuggestionActionEvent() {
     return {
-      engine: this.searchEngine,
-      output: this.output,
-      suggestions: this.suggestions,
+      mainComponent: this.engineService.mainComponent,
+      suggestionComponent: this,
     };
   }
 
@@ -131,9 +134,6 @@ export class SuggestionComponent implements OnInit {
 
     const suggestionEngineId = this.preferenceService.getPreference('suggestionEngine');
     this.suggestionEngine = this.engineService.getSuggestionEngine(suggestionEngineId);
-
-    const searchEngineId = this.preferenceService.getPreference('searchEngine');
-    this.searchEngine = this.engineService.getSearchEngine(searchEngineId);
   }
 
 }

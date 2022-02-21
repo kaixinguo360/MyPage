@@ -32,10 +32,10 @@ export class Google implements Engine {
           const suggestions: Suggestion[] = [];
           su.forEach(item => suggestions.push({
             title: item[0],
-            mainAction: (event) => event.engine.search(item[0]),
+            mainAction: (event) => event.mainComponent.search(item[0]),
             subAction: (event) => {
-              event.output.emit(item[0]);
-              event.suggestions.length = 0;
+              event.suggestionComponent.output.emit(item[0]);
+              event.suggestionComponent.clearSuggestions();
             },
           }));
           subject.next(suggestions);

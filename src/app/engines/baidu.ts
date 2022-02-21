@@ -32,10 +32,10 @@ export class Baidu implements Engine {
           const suggestions: Suggestion[] = [];
           (su as unknown[]).forEach((item: string) => suggestions.push({
             title: item,
-            mainAction: (event) => event.engine.search(item),
+            mainAction: (event) => event.mainComponent.search(item),
             subAction: (event) => {
-              event.output.emit(item);
-              event.suggestions.length = 0;
+              event.suggestionComponent.output.emit(item);
+              event.suggestionComponent.clearSuggestions();
             },
           }));
           subject.next(suggestions);

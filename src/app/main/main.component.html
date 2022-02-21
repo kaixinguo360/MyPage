@@ -14,7 +14,7 @@
              (keydown.control.arrowUp)="prevEngine()"
              (keydown.control.arrowDown)="nextEngine()"
              (keydown.tab)="$event.preventDefault();suggestion.doSubAction()"
-             (keydown.enter)="suggestion.selected===-1?search(searchInput.value):suggestion.doMainAction()">
+             (keydown.enter)="(!enableSuggestion||(suggestion.suggestions.length===0||suggestion.selected===-1))?search(searchInput.value):suggestion.doMainAction()">
     </div>
     <button #shortcutBtn class="btn shortcut-btn"
             (click)="openShortcut=true;enableSuggestion=true;searchInput.focus();$event.stopPropagation()">

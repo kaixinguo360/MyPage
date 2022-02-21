@@ -118,9 +118,6 @@ export class EngineService {
 
     return engine;
   }
-  public changeEngine(engine: string | Engine): boolean {
-    return this.mainComponent.changeEngine(engine);
-  }
 
   private updateEngines() {
     this.defaultSearch = this.presetEngines.defaultSearch;
