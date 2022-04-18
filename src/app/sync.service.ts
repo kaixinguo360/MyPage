@@ -17,6 +17,7 @@ interface UserData {
   customEngines: CustomEngineData[];
   customLogoId: string;
   customLogoUrl: string;
+  backgroundImageUrl: string;
 }
 
 @Injectable({
@@ -88,6 +89,7 @@ export class SyncService {
     this.preferenceService.setPreference('customEngines', JSON.stringify(data.customEngines));
     this.preferenceService.setPreference('customLogoId', data.customLogoId);
     this.preferenceService.setPreference('customLogoUrl', data.customLogoUrl);
+    this.preferenceService.setPreference('backgroundImageUrl', data.backgroundImageUrl);
   }
 
   public exportData(): UserData {
@@ -97,6 +99,7 @@ export class SyncService {
       customEngines: JSON.parse(this.preferenceService.getPreference('customEngines')),
       customLogoId: this.preferenceService.getPreference('customLogoId'),
       customLogoUrl: this.preferenceService.getPreference('customLogoUrl'),
+      backgroundImageUrl: this.preferenceService.getPreference('backgroundImageUrl'),
     };
   }
 

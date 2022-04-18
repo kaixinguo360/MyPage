@@ -24,6 +24,8 @@ export class SettingComponent implements OnInit {
 
   customEngines: CustomEngineData[];
 
+  backgroundImageUrl: string;
+
   userName: string;
   userPassword: string;
 
@@ -55,6 +57,10 @@ export class SettingComponent implements OnInit {
     this.preferenceService.setPreference('customLogoUrl', this.customLogoUrl);
   }
 
+  saveBackground() {
+    this.preferenceService.setPreference('backgroundImageUrl', this.backgroundImageUrl);
+  }
+
   saveAuthorization() {
     this.syncService.setAuthorization(this.userName, this.userPassword);
     this.userPassword = '';
@@ -73,6 +79,8 @@ export class SettingComponent implements OnInit {
 
     this.customEngines = this.engineService.getCustomEngineData();
 
+    this.backgroundImageUrl = this.preferenceService.getPreference('backgroundImageUrl');
+
     this.userName = this.preferenceService.getPreference('userName');
     this.userPassword = '';
   }
@@ -86,5 +94,4 @@ export class SettingComponent implements OnInit {
   ngOnInit() {
     this.update();
   }
-
 }

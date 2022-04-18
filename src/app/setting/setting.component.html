@@ -56,6 +56,16 @@
   </div>
   <div class="set-catalog">
     <div class="set-catalog-title">
+      <h2>外观设置</h2>
+    </div>
+    <hr>
+    <div class="set-item">
+      背景图片
+      <input class="set" placeholder="图片 URL" [(ngModel)]="backgroundImageUrl" (change)="saveBackground()">
+    </div>
+  </div>
+  <div class="set-catalog">
+    <div class="set-catalog-title">
       <h2>云同步</h2>
     </div>
     <hr>
